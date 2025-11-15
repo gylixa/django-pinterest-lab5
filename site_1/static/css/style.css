@@ -1,0 +1,78 @@
+body {
+    background: rgb(41, 16, 16);
+    color: rgb(49, 38, 38);
+    margin: 0;
+    padding: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.project {
+    display: inline-block;
+    width: 300px;
+    min-height: 520px; /* регулируйте под содержимое */
+    padding: 20px;
+    border: 1px solid gold;
+    border-radius: 20px;
+    margin: 15px;
+    vertical-align: top;
+    position: relative;
+    background: #111;
+    transition: all 0.3s ease;
+}
+
+.project:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.project img {
+    width: 300px;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+}
+
+.project h2 {
+    margin: 10px 0;
+}
+
+.project p {
+    margin: 10px 0;
+}
+
+.save-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    background-color: transparent;
+    color: rgb(255, 4, 0);
+    border: 1px solid rgb(255, 4, 0);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background-color: rgb(255, 4, 0);
+    color: black;
+    border-color: rgb(255, 60, 0);
+}
+
+.sale-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 14px;
+}

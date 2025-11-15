@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Наши проекты — Pinterest стиль{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* вставьте CSS выше сюда */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Наши проекты</h1>
+    {% for project in projects %}
+        {% include 'includes/project_card.html' with project=project %}
+    {% endfor %}
+</div>
+{% endblock %}

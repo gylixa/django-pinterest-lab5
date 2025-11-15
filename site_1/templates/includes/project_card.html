@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="project">
+    {% if forloop.first %}
+        <div class="sale-badge">SALE</div>
+    {% endif %}
+
+    <img src="{% static project.image %}" alt="{{ project.name }}">
+    <h2>{{ project.name }}</h2>
+    <p><strong>Тип:</strong> {{ project.type }}</p>
+    <p><strong>Адрес:</strong> {{ project.address.Город }}, {{ project.address.Улица }}, {{ project.address.Дом }}</p>
+    <p><strong>Характеристики:</strong></p>
+    <ul style="text-align: left; padding-left: 20px;">
+        {% for char in project.characteristics %}
+            <li>{{ char }}</li>
+        {% endfor %}
+    </ul>
+
+    <button class="save-btn">Сохранить</button>
+</div>

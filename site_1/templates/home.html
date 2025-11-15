@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Стоимость{% endblock %}
+
+{% block content %}
+    <h1>Расценки на проекты</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Метраж</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.area }} м²</td>
+                <td>{{ project.price }} ₽</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">Нет проектов</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
