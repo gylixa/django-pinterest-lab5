@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.index_page, name='about'),
     path('home/', views.home_page, name='pricing'),
     path('read-file/', views.read_file_page, name='read_file'),
+    path('projects/', views.projects_list, name='projects_list'),
 ]

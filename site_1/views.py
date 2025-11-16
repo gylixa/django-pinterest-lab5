@@ -2,6 +2,7 @@
 from django.shortcuts import render
 import os
 from django.conf import settings
+from .models import Project
 
 def index_page(request):
     projects = [
@@ -71,3 +72,7 @@ def read_file_page(request):
         'content': content,
         'error': error
     })
+
+def projects_list(request):
+    projects = Project.objects.prefetch_related('buildings').all()
+    return render(request, 'projects_list.html', {'projects': projects})
