@@ -74,5 +74,8 @@ def read_file_page(request):
     })
 
 def projects_list(request):
-    projects = Project.objects.prefetch_related('buildings').all()
+    projects = Project.objects.prefetch_related(
+        'buildings',
+        'buildings__materials'
+    ).all()
     return render(request, 'projects_list.html', {'projects': projects})

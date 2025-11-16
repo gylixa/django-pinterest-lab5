@@ -1,50 +1,72 @@
-<!-- templates/projects_list.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Проекты и корпуса{% endblock %}
 
-{% block content %}
-<h1>Проекты и корпуса</h1>
-
-{% for project in projects %}
-<div style="margin-bottom: 40px; padding: 20px; background: #222; border-radius: 10px;">
-    <h2>🏗 {{ project.name }}</h2>
-    <p><strong>Город:</strong> {{ project.city }}</p>
-    <p><strong>Описание:</strong> {{ project.description|default:"—" }}</p>
-
-    {% if project.buildings.exists %}
-        <h3>Корпуса:</h3>
-        <table border="1" cellpadding="10" cellspacing="0" style="width:100%; margin-top:15px; background:#333;">
-            <thead>
-                <tr style="background:#444;">
-                    <th>Название</th>
-                    <th>Этажей</th>
-                    <th>Квартир</th>
-                    <th>Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for building in project.buildings.all %}
-                <tr>
-                    <td>{{ building.name }}</td>
-                    <td>{{ building.floors }}</td>
-                    <td>{{ building.apartments_count }}</td>
-                    <td>{{ building.get_status_display }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p><em>Корпуса ещё не добавлены.</em></p>
-    {% endif %}
-</div>
-{% empty %}
-<p>Проекты не найдены.</p>
-{% endfor %}
-
+{% block extra_css %}
 <style>
     table { color: white; border-collapse: collapse; }
     th, td { text-align: left; }
 </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>🏗️ Проекты и корпуса</h1>
+
+    {% for project in projects %}
+    <div class="project-card">
+        <h2 class="project-title">{{ project.name }}</h2>
+        <p class="project-meta"><strong>Город:</strong> {{ project.city }}</p>
+        {% if project.description %}
+            <p class="project-meta"><strong>Описание:</strong> {{ project.description }}</p>
+        {% endif %}
+
+        {% if project.buildings.exists %}
+            <h3>Корпуса:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Этажи</th>
+                        <th>Квартир</th>
+                        <th>Статус</th>
+                        <th>Материалы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for building in project.buildings.all %}
+                    <tr>
+                        <td>{{ building.name }}</td>
+                        <td>{{ building.floors }}</td>
+                        <td>{{ building.apartments_count }}</td>
+                        <td>
+                            {% if building.status == 'planned' %}Планируется
+                            {% elif building.status == 'building' %}Строится
+                            {% elif building.status == 'completed' %}Сдан
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if building.materials.exists %}
+                                <div class="materials-list">
+                                    {% for mat in building.materials.all %}
+                                        <span class="material-tag">{{ mat.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <span class="no-data">—</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">Корпуса ещё не добавлены.</p>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p class="no-data">Проекты не найдены.</p>
+    {% endfor %}
+</div>
 {% endblock %}

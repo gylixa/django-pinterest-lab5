@@ -13,12 +13,36 @@ class Project(models.Model):
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
 
+class Material(models.Model):
+    name = models.CharField('Название', max_length=100, unique=True)
+    type = models.CharField(
+        'Тип',
+        max_length=50,
+        choices=[
+            ('concrete', 'Бетон'),
+            ('brick', 'Кирпич'),
+            ('glass', 'Стекло'),
+            ('metal', 'Металл'),
+            ('wood', 'Дерево'),
+            ('other', 'Другое'),
+        ],
+        default='other'
+    )
+    description = models.TextField('Описание', blank=True)
+    supplier = models.CharField('Поставщик', max_length=100, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Материал'
+        verbose_name_plural = 'Материалы'
 
 class Building(models.Model):
     project = models.ForeignKey(
         Project,
-        on_delete=models.CASCADE,  # при удалении проекта — удаляются и корпуса
-        related_name='buildings',   # project.buildings.all()
+        on_delete=models.CASCADE,
+        related_name='buildings',
         verbose_name='Проект'
     )
     name = models.CharField('Название корпуса/дома', max_length=100)
@@ -33,6 +57,14 @@ class Building(models.Model):
             ('completed', 'Сдан'),
         ],
         default='planned'
+    )
+
+    # 🔗 Связь «многие ко многим» с Material
+    materials = models.ManyToManyField(
+        Material,
+        related_name='buildings',
+        verbose_name='Материалы',
+        blank=True
     )
 
     def __str__(self):
