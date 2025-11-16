@@ -21,5 +21,6 @@ from site_1 import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='about'),
-    path('home/', views.home_page, name='pricing')
+    path('home/', views.home_page, name='pricing'),
+    path('read-file/', views.read_file_page, name='read_file'),
 ]
